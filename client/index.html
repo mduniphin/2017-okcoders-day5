@@ -1,1 +1,22 @@
-<h1>HELLO WORLD</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task List</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+	<script language="javascript" type="application/javascript">
+		function getTasks() {
+			$.getJSON('/tasks', function(result) { //jQuery handler, it overrides dollar sign
+				$.each(result, function(i, field) { //creates for loop, only on arrays
+					$("#taskList").append("<li>" + field.task + "</li>") //#name grab element by id
+				})
+			})
+		}
+		$( document ).ready(getTasks); //jQuery will watch page to make sure all is loaded then excute ready command
+	</script>
+</head>
+<body>
+	<h1>ToDo List</h1>
+	<ul id="taskList">
+	</ul>
+</body>
+</html>
