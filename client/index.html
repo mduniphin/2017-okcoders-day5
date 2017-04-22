@@ -11,17 +11,38 @@
 		function getTasks() {
 			$.getJSON('/tasks', function(result) { //jQuery handler, it overrides dollar sign
 				$.each(result, function(i, field) { //creates for loop, only on arrays
-					$("#taskList").append("<li>" + field.task + "</li>") //#name grab element by id
+					$("#taskList").append("<li>" + field.task + "</li>") //#name grab element by id, selectors
 				})
 			})
 		}
-		$( document ).ready(getTasks); //jQuery will watch page to make sure all is loaded then execute ready command
+		$( document ).ready(function(){	//jQuery will watch page to make sure all is loaded then execute ready command
+			getTasks();
+			$("#addTask").click(function(){ //anytime its clicked, grabs the function
+				var newTask = $("#newTask").val(); // .val() grabs value in text element
+				if (newTask === ""){ return false; } //prevents blanks tasks
+				else {
+					$.post('/tasks/' + newTask, function(data) { //route
+						$("#taskList").empty(); // .empty() function clears out div
+						getTasks(); //call getTasks(); function to reload list
+						$("#newTask").val(""); //clears text box
+					});
+				}
+			});
+		}); 
 	</script>
 </head>
-<body>
+<body> <!--bootstrap-->
 	<div class="jumbotron">
 		<div class="container">
 			<h1>ToDo List</h1>
+			<div class="input-group">
+				<input id="newTask" type="text" class="form-control" placeholder="Need to do...">
+				<span class="input-group-btn">
+					<button id="addTask" class="btn btn-default" type="button">
+						Add Task
+					</button>
+				</span>	
+			</div>	
 		</div>
 	</div>
 	<ul id="taskList">
