@@ -11,7 +11,7 @@ exports.read = function(req, res, next) {
 exports.create = function (req, res, next) {
 	var task = new Tasks();
 
-	task.task = req.params.task;
+	task.task = req.params.arg1;
 	task.date = new Date();
 	task.completed = false;
 
@@ -20,4 +20,20 @@ exports.create = function (req, res, next) {
 		else { res.json( {status: "success", id: data._id} ); }
 	});
 	return next();
+}
+
+exports.update = function(req, res, next) {
+	var arg = req.params.arg1;
+	var query = { task: arg }; //define find function
+
+	Tasks.update( query, {completed: true}, function(err, doc) {
+		if (err) { 
+			console.log("Unable to update document" + err );
+			res.send(404);
+		} else {
+			res.json( {status: "success"} );
+		}
+		return next();
+	})
+
 }

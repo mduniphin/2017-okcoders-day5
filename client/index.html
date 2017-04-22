@@ -11,9 +11,14 @@
 		function getTasks() {
 			$.getJSON('/tasks', function(result) { //jQuery handler, it overrides dollar sign
 				$.each(result, function(i, field) { //creates for loop, only on arrays
-					$("#taskList").append("<li>" + field.task + "</li>") //#name grab element by id, selectors
-				})
-			})
+					var ldate = new Date(field.date)
+					$("#taskList").append("<a href='#' class='list-group-item'>" + //#name grab element by id, selectors
+						"<h4 class='list-group-item-heading'>" +
+							"<span class='glyphicon glyphicon-remove'></span>" +
+							field.task + "</h4>" +
+						"<p class='list-group-item-text'>" + ldate.toLocaleDateString() + "</p></a>"); //or field.date and comment out var ldate
+				});
+			});
 		}
 		$( document ).ready(function(){	//jQuery will watch page to make sure all is loaded then execute ready command
 			getTasks();
@@ -45,7 +50,7 @@
 			</div>	
 		</div>
 	</div>
-	<ul id="taskList">
-	</ul>
+	<div id="taskList" class="list-group">
+	</div>
 </body>
 </html>

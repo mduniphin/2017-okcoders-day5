@@ -25,7 +25,8 @@ db.once('open', function() {
 // });
 server.get('/', client.get);
 server.get('/tasks', tasks.read); //read route
-server.post('/tasks/:task', tasks.create); //create route, ":task" argument must match req.params.task in route
+server.post('/tasks/:arg1', tasks.create); //create route, ":task" argument must match req.params.task in route
+server.put('/tasks/:arg1', tasks.update);
 
 server.listen(port, function() {
 	console.log('%s listening on %s', server.name, port);
