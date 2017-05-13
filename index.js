@@ -1,6 +1,7 @@
 var restify = require('restify');
 var mongoose = require('mongoose');
 var server = restify.createServer();
+//server.use(restify.queryParser()); needed for multiple arguements
 
 const port = 8088;
 const dbserver = 'mongodb://localhost/todo'
@@ -26,7 +27,8 @@ db.once('open', function() {
 server.get('/', client.get);
 server.get('/tasks', tasks.read); //read route
 server.post('/tasks/:arg1', tasks.create); //create route, ":task" argument must match req.params.task in route
-server.put('/tasks/:arg1', tasks.update);
+server.put('/tasks/:arg1', tasks.update); //update
+//server.post('/path/:arg1/:arg2', functionCall); //multiple arguements
 
 server.listen(port, function() {
 	console.log('%s listening on %s', server.name, port);

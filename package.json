@@ -10,7 +10,7 @@
   "keywords": [
     "todo"
   ],
-  "author": "Maxx DUuniphin",
+  "author": "Maxx Duniphin",
   "license": "ISC",
   "dependencies": {
     "mongoose": "^4.9.5",
